@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import trestepImage from "../assets/Trestep.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,10 +22,10 @@ function Projects({ darkMode }) {
         "MongoDB",
         "Tailwind CSS",
       ],
-      image: "/src/assets/Trestep.png",
+      image: trestepImage,
       url: "https://trestep-shoes-store-pqta.vercel.app/",
     },
- ];
+  ];
 
   useEffect(() => {
     const cards = sectionRef.current.querySelectorAll(".project-card");
@@ -96,7 +97,7 @@ function Projects({ darkMode }) {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="h-full w-full object-contain  transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
                 />
 
                 {/* Image Overlay */}
