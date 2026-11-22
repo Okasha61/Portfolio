@@ -32,18 +32,23 @@ function Projects({ darkMode }) {
 
   // Application Projects
   const appProjects = [
-    // Add your applications here.
-    // Example:
-    // {
-    //   number: "01",
-    //   title: "Book Store App",
-    //   category: "Flutter Application",
-    //   description: "A Flutter application...",
-    //   tech: ["Flutter", "Dart", "Firebase"],
-    //   image: appImage,
-    //   url: "YOUR_APP_LINK",
-    //   buttonText: "View Application",
-    // },
+    {
+      number: "01",
+      title: "Book Store App",
+      category: "Flutter Mobile Application",
+      description:
+        "A complete book store application with dynamic book browsing, categories, wishlist, shopping cart, checkout, order management and an admin panel.",
+      tech: [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Cloud Firestore",
+        "Firebase Auth",
+      ],
+      icon: "fa-solid fa-book-open",
+      url: null,
+      buttonText: "Mobile Application",
+    },
   ];
 
   useEffect(() => {
@@ -114,28 +119,35 @@ function Projects({ darkMode }) {
     }
 
     return projects.map((project) => (
-      <a
+      <div
         key={project.number}
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
         className={`project-card group block overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-3 ${
           darkMode
             ? "border-white/10 bg-white/[0.03] hover:border-indigo-500/50"
             : "border-slate-200 bg-white hover:border-indigo-500/50"
         }`}
       >
-        {/* Project Image */}
+        {/* Project Image / Icon */}
         <div
-          className={`relative h-64 w-full overflow-hidden ${
+          className={`relative flex h-64 w-full items-center justify-center overflow-hidden ${
             darkMode ? "bg-black/40" : "bg-slate-100"
           }`}
         >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
-          />
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-pink-500/10">
+              <div className="absolute h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl transition-transform duration-500 group-hover:scale-150" />
+
+              <i
+                className={`${project.icon} relative text-7xl text-indigo-500 transition-transform duration-500 group-hover:scale-110`}
+              />
+            </div>
+          )}
 
           {/* Image Overlay */}
           <div className="absolute inset-0 bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
@@ -145,23 +157,27 @@ function Projects({ darkMode }) {
             {project.number}
           </span>
 
-          {/* Visit Project */}
-          <span className="absolute bottom-5 right-5 translate-y-3 rounded-lg bg-indigo-500 px-4 py-2 text-xs font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-            {project.buttonText} ↗
+          {/* Project Link / Type */}
+          <span className="absolute bottom-5 right-5 rounded-lg bg-indigo-500 px-4 py-2 text-xs font-semibold text-white">
+            {project.url
+              ? `${project.buttonText} ↗`
+              : project.buttonText}
           </span>
         </div>
 
         {/* Project Content */}
         <div className="p-7">
           {/* Title + Category */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-2xl font-bold transition-colors group-hover:text-indigo-500">
               {project.title}
             </h3>
 
             <span
-              className={`shrink-0 text-xs ${
-                darkMode ? "text-slate-500" : "text-slate-400"
+              className={`text-xs ${
+                darkMode
+                  ? "text-slate-500"
+                  : "text-slate-400"
               }`}
             >
               {project.category}
@@ -171,7 +187,9 @@ function Projects({ darkMode }) {
           {/* Description */}
           <p
             className={`mt-4 leading-7 ${
-              darkMode ? "text-slate-400" : "text-slate-600"
+              darkMode
+                ? "text-slate-400"
+                : "text-slate-600"
             }`}
           >
             {project.description}
@@ -192,8 +210,21 @@ function Projects({ darkMode }) {
               </span>
             ))}
           </div>
+
+          {/* External Link */}
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-500 transition-all hover:gap-3"
+            >
+              {project.buttonText}
+              <i className="fa-solid fa-arrow-up-right-from-square" />
+            </a>
+          )}
         </div>
-      </a>
+      </div>
     ));
   };
 
