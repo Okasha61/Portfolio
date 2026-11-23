@@ -2,13 +2,14 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import trestepImage from "../assets/Trestep.png";
+import bookAppImage from "../assets/book app.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Projects({ darkMode }) {
   const sectionRef = useRef(null);
 
-  const projects = [
+  const websiteProjects = [
     {
       number: "01",
       title: "Trestep",
@@ -24,6 +25,25 @@ function Projects({ darkMode }) {
       ],
       image: trestepImage,
       url: "https://trestep-shoes-store-pqta.vercel.app/",
+    },
+  ];
+
+  const appProjects = [
+    {
+      number: "01",
+      title: "Book Store App",
+      category: "Flutter Mobile Application",
+      description:
+        "A complete book store application with dynamic book browsing, categories, wishlist, shopping cart, checkout, order management and an admin panel.",
+      tech: [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Cloud Firestore",
+        "Firebase Auth",
+      ],
+      image: bookAppImage,
+      url: "https://book-store-app-phi-amber.vercel.app/",
     },
   ];
 
@@ -55,6 +75,93 @@ function Projects({ darkMode }) {
     };
   }, []);
 
+  const renderProjects = (projects) => (
+    <div className="grid gap-6 lg:grid-cols-3">
+      {projects.map((project) => (
+        <a
+          key={project.number}
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`project-card group block overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-3 ${
+            darkMode
+              ? "border-white/10 bg-white/[0.03] hover:border-indigo-500/50"
+              : "border-slate-200 bg-white hover:border-indigo-500/50"
+          }`}
+        >
+          {/* Project Image */}
+          <div
+            className={`relative h-64 w-full overflow-hidden ${
+              darkMode ? "bg-black/40" : "bg-slate-100"
+            }`}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+            />
+
+            {/* Image Overlay */}
+            <div className="absolute inset-0 bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
+
+            {/* Project Number */}
+            <span className="absolute left-5 top-5 rounded-lg bg-black/70 px-3 py-1.5 text-sm font-bold text-white backdrop-blur-sm">
+              {project.number}
+            </span>
+
+            {/* Visit Website */}
+            <span className="absolute bottom-5 right-5 translate-y-3 rounded-lg bg-indigo-500 px-4 py-2 text-xs font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              Visit Website ↗
+            </span>
+          </div>
+
+          {/* Project Content */}
+          <div className="p-7">
+            {/* Title + Category */}
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-2xl font-bold transition-colors group-hover:text-indigo-500">
+                {project.title}
+              </h3>
+
+              <span
+                className={`shrink-0 text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                {project.category}
+              </span>
+            </div>
+
+            {/* Description */}
+            <p
+              className={`mt-4 leading-7 ${
+                darkMode ? "text-slate-400" : "text-slate-600"
+              }`}
+            >
+              {project.description}
+            </p>
+
+            {/* Technologies */}
+            <div className="mt-7 flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <span
+                  key={tech}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
+                    darkMode
+                      ? "bg-white/5 text-slate-300"
+                      : "bg-slate-100 text-slate-600"
+                  }`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+
   return (
     <section
       id="projects"
@@ -74,94 +181,24 @@ function Projects({ darkMode }) {
           </h2>
         </div>
 
-        {/* Projects */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {projects.map((project) => (
-            <a
-              key={project.number}
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`project-card group block overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-3 ${
-                darkMode
-                  ? "border-white/10 bg-white/[0.03] hover:border-indigo-500/50"
-                  : "border-slate-200 bg-white hover:border-indigo-500/50"
-              }`}
-            >
-              {/* Project Image */}
-              <div
-                className={`relative h-64 w-full overflow-hidden ${
-                  darkMode ? "bg-black/40" : "bg-slate-100"
-                }`}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
-                />
+        {/* Websites Section */}
+        <div className="mb-20">
+          <h3 className="mb-8 text-3xl font-bold sm:text-4xl">
+            Websites
+            <span className="text-indigo-500">.</span>
+          </h3>
 
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
+          {renderProjects(websiteProjects)}
+        </div>
 
-                {/* Project Number */}
-                <span className="absolute left-5 top-5 rounded-lg bg-black/70 px-3 py-1.5 text-sm font-bold text-white backdrop-blur-sm">
-                  {project.number}
-                </span>
+        {/* Apps Section */}
+        <div>
+          <h3 className="mb-8 text-3xl font-bold sm:text-4xl">
+            Apps
+            <span className="text-indigo-500">.</span>
+          </h3>
 
-                {/* Visit Website */}
-                <span className="absolute bottom-5 right-5 translate-y-3 rounded-lg bg-indigo-500 px-4 py-2 text-xs font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  Visit Website ↗
-                </span>
-              </div>
-
-              {/* Project Content */}
-              <div className="p-7">
-                {/* Title + Category */}
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-2xl font-bold transition-colors group-hover:text-indigo-500">
-                    {project.title}
-                  </h3>
-
-                  <span
-                    className={`shrink-0 text-xs ${
-                      darkMode
-                        ? "text-slate-500"
-                        : "text-slate-400"
-                    }`}
-                  >
-                    {project.category}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p
-                  className={`mt-4 leading-7 ${
-                    darkMode
-                      ? "text-slate-400"
-                      : "text-slate-600"
-                  }`}
-                >
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
-                        darkMode
-                          ? "bg-white/5 text-slate-300"
-                          : "bg-slate-100 text-slate-600"
-                      }`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </a>
-          ))}
+          {renderProjects(appProjects)}
         </div>
       </div>
     </section>
